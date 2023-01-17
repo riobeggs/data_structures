@@ -1,4 +1,5 @@
 from item import SingleItem
+from items import Items
 
 
 def main():
@@ -12,5 +13,15 @@ def main():
     si.get_added_value()
 
 
+def main2():
+    si = SingleItem()
+    si.add(1)
+    i = Items()
+    i.store_head(si)
+    result = i.retrieve_head()
+
+    print(result)
+
+
 if __name__ == "__main__":
-    main()
+    main2()
