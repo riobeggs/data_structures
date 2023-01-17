@@ -4,6 +4,10 @@ class SingleItem:
     _value = None
     _next_item = None
 
+    def __str__(self) -> str:
+        return f"SingleItem({self._value})"
+        return str(self._value)
+
     def add(self, value):
         self._value = value
 
@@ -24,4 +28,4 @@ class SingleItem:
 
         # return True
 
-        return self._next_item is not None 
+        return self._next_item is not None
