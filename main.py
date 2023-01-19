@@ -23,5 +23,20 @@ def main2():
     print(result)
 
 
+def main3():
+    si1 = SingleItem()
+    si1.add(1)
+    si2 = SingleItem()
+    si2.add(2)
+    si3 = SingleItem()
+    si3.add(3)
+    si1.store_next_item(si2)
+    si2.store_next_item(si3)
+    i = Items()
+    i.store_head(si1)
+    for item in i:
+        print(item)
+
+
 if __name__ == "__main__":
-    main2()
+    main3()
