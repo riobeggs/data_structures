@@ -20,7 +20,7 @@ class Items:
         if self.is_empty():
             raise StopIteration
 
-        # If start of list 
+        # If start of list
         if self._current is None:
             self._current = self._head
         # If next item
@@ -28,14 +28,10 @@ class Items:
             self._current = self._current.get_next_item()
         # If end of list
         else:
-            # self._current = None
-            raise StopIteration 
+            self._current = None
+            raise StopIteration
 
         return self._current
-
-        
-        
-
 
     # def get_item_by_index()
 
@@ -50,4 +46,3 @@ class Items:
 
     def is_empty(self) -> bool:
         return self._head is None
-
