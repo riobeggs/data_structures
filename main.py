@@ -64,5 +64,32 @@ def main4():
     print(result)
 
 
+def main5():
+    si1 = SingleItem()
+    si1.add("a")
+    si2 = SingleItem()
+    si2.add("b")
+    si3 = SingleItem()
+    si3.add("c")
+    si4 = SingleItem()
+    si4.add("d")
+    si5 = SingleItem()
+    si5.add("e")
+
+    si1.store_next_item(si2)
+    si2.store_next_item(si3)
+    si3.store_next_item(si4)
+    si4.store_next_item(si5)
+
+    items = Items()
+    items.store_head(si1)
+    items.store_tail(si5)
+
+    items.remove_item(si5)
+
+    for item in items:
+        print(item)
+
+
 if __name__ == "__main__":
-    main4()
+    main5()
