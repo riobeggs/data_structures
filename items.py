@@ -12,6 +12,7 @@ class Items:
     _index = 0
 
     def __iter__(self):
+        self._current = None
         return self
 
     def __next__(self):
@@ -25,15 +26,15 @@ class Items:
         # If start of list
         if self._current is None:
             self._current = self._head
+        # If tail
+        elif self._current is self._tail:
+            self._current = None
+            self._index += 1
+            raise StopIteration
         # If next item
         elif self._current.has_next_item():
             self._current = self._current.get_next_item()
             self._index += 1
-        # If end of list
-        else:
-            self._current = None
-            self._index += 1
-            raise StopIteration
 
         return self._current
 
@@ -64,3 +65,24 @@ class Items:
 
     def is_empty(self) -> bool:
         return self._head is None
+
+    def remove_item(self, delete_item: SingleItem):
+        if not isinstance(delete_item, SingleItem):
+            raise Exception(f"{delete_item} is not an instance of a SingleItem")
+
+        for item in self:
+
+            if item is self._head:
+
+                if item is delete_item:
+                    self.store_head(item.get_next_item())
+                    break
+
+            if item.get_next_item() is delete_item:
+
+                if item.get_next_item() is self._tail:
+                    self.store_tail(item)
+                    break
+
+                item.store_next_item(delete_item.get_next_item())
+                break
