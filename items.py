@@ -72,15 +72,17 @@ class Items:
 
         for item in self:
 
+            next_item = item.get_next_item()
+
             if item is self._head:
 
                 if item is delete_item:
-                    self.store_head(item.get_next_item())
+                    self.store_head(next_item)
                     break
 
-            if item.get_next_item() is delete_item:
+            if next_item is delete_item:
 
-                if item.get_next_item() is self._tail:
+                if next_item is self._tail:
                     self.store_tail(item)
                     break
 
