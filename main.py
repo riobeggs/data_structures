@@ -85,7 +85,7 @@ def main5():
     items.store_head(si1)
     items.store_tail(si5)
 
-    items.remove_item(si5)
+    items.remove_item_by_index(5)
 
     for item in items:
         print(item)
