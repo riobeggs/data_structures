@@ -5,20 +5,20 @@ from items import Items
 def main():
     si = SingleItem()
     si2 = SingleItem()
-    si.store_next_item(si2)
+    si.set_next_item(si2)
     assert si.has_next_item()
     # si.add(1)
     #
     # assert 1 == si.get_added_value()
-    si.get_added_value()
+    si.value()
 
 
 def main2():
     si = SingleItem()
     si.add(1)
     i = Items()
-    i.store_head(si)
-    result = i.retrieve_head()
+    i.set_head(si)
+    result = i.head()
 
     print(result)
 
@@ -30,10 +30,10 @@ def main3():
     si2.add(2)
     si3 = SingleItem()
     si3.add(3)
-    si1.store_next_item(si2)
-    si2.store_next_item(si3)
+    si1.set_next_item(si2)
+    si2.set_next_item(si3)
     i = Items()
-    i.store_head(si1)
+    i.set_head(si1)
     for item in i:
         print(item)
 
@@ -50,15 +50,15 @@ def main4():
     si5 = SingleItem()
     si5.add("e")
 
-    si1.store_next_item(si2)
-    si2.store_next_item(si3)
-    si3.store_next_item(si4)
-    si4.store_next_item(si5)
+    si1.set_next_item(si2)
+    si2.set_next_item(si3)
+    si3.set_next_item(si4)
+    si4.set_next_item(si5)
 
     items = Items()
 
-    items.store_head(si1)
-    items.store_tail(si5)
+    items.set_head(si1)
+    items.set_tail(si5)
 
     result = items.get_item_by_index(3)
     print(result)
@@ -76,16 +76,16 @@ def main5():
     si5 = SingleItem()
     si5.add("e")
 
-    si1.store_next_item(si2)
-    si2.store_next_item(si3)
-    si3.store_next_item(si4)
-    si4.store_next_item(si5)
+    si1.set_next_item(si2)
+    si2.set_next_item(si3)
+    si3.set_next_item(si4)
+    si4.set_next_item(si5)
 
     items = Items()
-    items.store_head(si1)
-    items.store_tail(si5)
+    items.set_head(si1)
+    items.set_tail(si5)
 
-    items.remove_item_by_index(5)
+    items.remove_item_by_index(3)
 
     for item in items:
         print(item)

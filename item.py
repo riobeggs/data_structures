@@ -5,21 +5,21 @@ class SingleItem:
     _next_item = None
 
     def __str__(self) -> str:
-        return f"SingleItem({self._value})"
+        # return f"SingleItem({self._value})"
         return str(self._value)
 
     def add(self, value):
         self._value = value
 
-    def get_added_value(self):
+    def value(self):
         return self._value
 
-    def store_next_item(self, next_item: "SingleItem"):
+    def set_next_item(self, next_item: "SingleItem"):
         if not isinstance(next_item, SingleItem):
             raise Exception(f"{next_item} is not an instance of a SingleItem")
         self._next_item = next_item
 
-    def get_next_item(self) -> "SingleItem":
+    def next_item(self) -> "SingleItem":
         return self._next_item
 
     def has_next_item(self) -> bool:
