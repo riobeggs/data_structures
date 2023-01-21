@@ -66,25 +66,32 @@ class Items:
     def is_empty(self) -> bool:
         return self._head is None
 
-    def remove_item(self, delete_item: SingleItem):
-        if not isinstance(delete_item, SingleItem):
-            raise Exception(f"{delete_item} is not an instance of a SingleItem")
+    def remove_item_by_index(self, index: int):
+        if not isinstance(index, int):
+            raise Exception(f"{index} is not an integer.")
 
         for item in self:
 
             next_item = item.get_next_item()
+            # If no next item: Index is out of range
+            if next_item is None:
+                raise IndexError("Index out of range")
 
+            # If current item is head
             if item is self._head:
-
-                if item is delete_item:
+                # If the heads is to be deleted
+                if self._index is index:
+                    # Store heads next item as head
                     self.store_head(next_item)
                     break
 
-            if next_item is delete_item:
-
+            # If next item in list is to be deleted
+            if self._index + 1 == index:
+                # If next item is tail
                 if next_item is self._tail:
+                    # Store current item as tail
                     self.store_tail(item)
                     break
-
-                item.store_next_item(delete_item.get_next_item())
+                # Store deleted items next item as the current items next item
+                item.store_next_item(next_item.get_next_item())
                 break
