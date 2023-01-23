@@ -12,6 +12,12 @@ class List:
         self._tail = None
         self._index = None
 
+    def __str__(self) -> str:
+        items = ", ".join([f'"{str(item)}"' for item in self])
+        item_list = f"[{items}]"
+
+        return item_list
+
     def __iter__(self):
         self._current = None
         return self
