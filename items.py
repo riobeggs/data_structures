@@ -59,14 +59,14 @@ class List:
     def tail(self, tail):
         self._tail = tail
 
-    def get_item_by_index(self, index: int):
+    def get_item(self, index: int):
         for _ in self:
             if self._index == index:
                 return self._current
 
         raise IndexError(f"Index {index} is out of range")
 
-    def remove_item_by_index(self, index: int):
+    def remove_item(self, index: int):
         if not isinstance(index, int):
             raise Exception(f"{index} is not an integer.")
 
