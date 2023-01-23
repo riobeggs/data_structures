@@ -1,15 +1,16 @@
-from item import SingleItem
+from item import Item
 
 
-class Items:
+class List:
     # Stores head
     # Iterate over all items
     # Can return specific item
     # Can sort items (optional)
-    _head = None
-    _tail = None
-    _current = None
-    _index = 0
+    def __init__(self) -> None:
+        self._current = None
+        self._head = None
+        self._tail = None
+        self._index = None
 
     def __iter__(self):
         self._current = None
@@ -26,6 +27,7 @@ class Items:
         # If start of list
         if self._current is None:
             self._current = self._head
+            self._index = 0
         # If tail
         elif self._current is self._tail:
             self._current = None
@@ -33,31 +35,29 @@ class Items:
             raise StopIteration
         # If next item
         elif self._current.has_next_item():
-            self._current = self._current.next_item()
+            self._current = self._current.next_item
             self._index += 1
 
         return self._current
 
-    def set_head(self, head: SingleItem):
-        if not isinstance(head, SingleItem):
-            raise Exception(f"{head} is not an instance of a SingleItem")
-
-        self._head = head
-
-    def head(self) -> SingleItem:
-        return self._head
-
-    def set_tail(self, tail: SingleItem):
-        if not isinstance(tail, SingleItem):
-            raise Exception(f"{tail} is not an instance of a SingleItem")
-
-        self._tail = tail
-
-    def tail(self) -> SingleItem:
-        return self._tail
-
     def is_empty(self) -> bool:
         return self._head is None
+
+    @property
+    def head(self) -> Item:
+        return self._head
+
+    @head.setter
+    def head(self, head):
+        self._head = head
+
+    @property
+    def tail(self) -> Item:
+        return self._tail
+
+    @tail.setter
+    def tail(self, tail):
+        self._tail = tail
 
     def get_item_by_index(self, index: int):
         for _ in self:
@@ -72,7 +72,7 @@ class Items:
 
         for item in self:
 
-            next_item = item.next_item()
+            next_item = item.next_item
             # If no next item: Index is out of range
             if next_item is None:
                 raise IndexError("Index out of range")
@@ -82,7 +82,7 @@ class Items:
                 # If the heads is to be deleted
                 if self._index is index:
                     # Store heads next item as head
-                    self.set_head(next_item)
+                    self._head = self._head.next_item
                     break
 
             # If next item in list is to be deleted
@@ -90,8 +90,8 @@ class Items:
                 # If next item is tail
                 if next_item is self._tail:
                     # Store current item as tail
-                    self.set_tail(item)
+                    self._tail = item
                     break
                 # Store deleted items next item as the current items next item
-                item.set_next_item(next_item.next_item())
+                item.next_item = next_item.next_item
                 break
