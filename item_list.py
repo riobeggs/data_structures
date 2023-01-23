@@ -11,12 +11,16 @@ class List:
         self._head = None
         self._tail = None
         self._index = None
+        self._length = 0
 
     def __str__(self) -> str:
         items = ", ".join([f'"{str(item)}"' for item in self])
         item_list = f"[{items}]"
 
         return item_list
+
+    def __len__(self) -> int:
+        return self._length
 
     def __iter__(self):
         self._current = None
@@ -65,14 +69,27 @@ class List:
     def tail(self, tail):
         self._tail = tail
 
-    def get_item(self, index: int):
+    def add(self, item) -> None:
+        self._length += 1
+
+        if self._tail is not None:
+            current_tail = self._tail
+            current_tail.next_item = item
+            item.next_item = None
+            self._tail = item
+
+        else:
+            self._head = item
+            self._tail = item
+
+    def get(self, index: int):
         for _ in self:
             if self._index == index:
                 return self._current
 
         raise IndexError(f"Index {index} is out of range")
 
-    def remove_item(self, index: int):
+    def remove(self, index: int):
         if not isinstance(index, int):
             raise Exception(f"{index} is not an integer.")
 
@@ -87,15 +104,18 @@ class List:
             if item is self._head:
                 # If the heads is to be deleted
                 if self._index is index:
+                    self._length -= 1
                     # Store heads next item as head
                     self._head = self._head.next_item
                     break
 
             # If next item in list is to be deleted
             if self._index + 1 == index:
+                self._length -= 1
                 # If next item is tail
                 if next_item is self._tail:
                     # Store current item as tail
+                    item.next_item = None
                     self._tail = item
                     break
                 # Store deleted items next item as the current items next item
