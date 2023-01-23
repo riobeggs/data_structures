@@ -106,8 +106,7 @@ def main6():
     item_list.head = item1
     item_list.tail = item3
 
-    for item in item_list:
-        print(item)
+    print(item_list)
 
 
 if __name__ == "__main__":
