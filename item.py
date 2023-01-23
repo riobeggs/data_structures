@@ -24,10 +24,10 @@ class Item:
     def next_item(self, next_item) -> None:
         self._next_item = next_item
 
-    def has_next_item(self) -> bool:
-        # if self.get_next_item == None:
-        #     return False
+    # def has_next_item(self) -> bool:
+    #     # if self.get_next_item == None:
+    #     #     return False
 
-        # return True
+    #     # return True
 
-        return self._next_item is not None
+    #     return self._next_item is not None
