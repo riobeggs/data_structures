@@ -103,10 +103,12 @@ def main6():
     item2.next_item = item3
 
     item_list = List()
-    item_list.head = item1
-    item_list.tail = item3
+    item_list.add(item1)
+    item_list.add(item2)
+    item_list.add(item3)
 
     print(item_list)
+    print(len(item_list))
 
 
 if __name__ == "__main__":
