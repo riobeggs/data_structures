@@ -34,13 +34,13 @@ class List:
         if self._current is None:
             self._current = self._head
             self._index = 0
-        # If tail
-        elif self._current is self._tail:
+        # If end of list
+        elif self._current.next_item is None:
             self._current = None
             self._index += 1
             raise StopIteration
         # If next item
-        elif self._current.has_next_item():
+        else:
             self._current = self._current.next_item
             self._index += 1
 
