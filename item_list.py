@@ -82,42 +82,48 @@ class List:
             self._head = item
             self._tail = item
 
-    def get(self, index: int):
-        for _ in self:
-            if self._index == index:
-                return self._current
+    def _index_is_valid(self, index: int) -> bool:
+        try:
+            index = int(index)
+        except:
+            raise TypeError(index, "is not an integer.")
 
-        raise IndexError(f"Index {index} is out of range")
+        if index >= self._length:
+            raise IndexError(index, "out of range.")
+
+        return True
+
+    def get(self, index: int):
+        if self._index_is_valid(index):
+            for _ in self:
+                if self._index == index:
+                    return self._current
 
     def remove(self, index: int):
-        if not isinstance(index, int):
-            raise Exception(f"{index} is not an integer.")
+        if self._index_is_valid(index):
 
-        for item in self:
+            for item in self:
 
-            next_item = item.next_item
-            # If no next item: Index is out of range
-            if next_item is None:
-                raise IndexError("Index out of range")
+                next_item = item.next_item
 
-            # If current item is head
-            if item is self._head:
-                # If the heads is to be deleted
-                if self._index is index:
+                # If current item is head
+                if item is self._head:
+                    # If the heads is to be deleted
+                    if self._index is index:
+                        self._length -= 1
+                        # Store heads next item as head
+                        self._head = self._head.next_item
+                        break
+
+                # If next item in list is to be deleted
+                if self._index + 1 == index:
                     self._length -= 1
-                    # Store heads next item as head
-                    self._head = self._head.next_item
+                    # If next item is tail
+                    if next_item is self._tail:
+                        # Store current item as tail
+                        item.next_item = None
+                        self._tail = item
+                        break
+                    # Store deleted items next item as the current items next item
+                    item.next_item = next_item.next_item
                     break
-
-            # If next item in list is to be deleted
-            if self._index + 1 == index:
-                self._length -= 1
-                # If next item is tail
-                if next_item is self._tail:
-                    # Store current item as tail
-                    item.next_item = None
-                    self._tail = item
-                    break
-                # Store deleted items next item as the current items next item
-                item.next_item = next_item.next_item
-                break
