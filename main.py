@@ -111,19 +111,32 @@ from item_list import List
 #     print(len(item_list))
 
 
-def main7():
-    item = Item()
-    item.value = "a"
+# def main7():
+#     item = Item()
+#     item.value = "a"
+
+#     item_list = List()
+
+#     item_list.add(item)
+
+#     print(item_list)
+
+#     item_list.remove(0)
+
+#     print(item_list)
+
+def main8():
+    item1 = Item()
+    item1.value = "a"
+    item2 = Item()
+    item2.value = "b"
+    item3 = Item()
+    item3.value = "c"
 
     item_list = List()
-
-    item_list.add(item)
-
-    print(item_list)
-
-    item_list.remove(0)
+    item_list.add([item1, item2, item3])
 
     print(item_list)
 
 if __name__ == "__main__":
-    main7()
+    main8()
