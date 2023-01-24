@@ -91,25 +91,39 @@ from item_list import List
 #         print(item)
 
 
-def main6():
-    item1 = Item()
-    item1.value = "a"
-    item2 = Item()
-    item2.value = "b"
-    item3 = Item()
-    item3.value = "c"
+# def main6():
+#     item1 = Item()
+#     item1.value = "a"
+#     item2 = Item()
+#     item2.value = "b"
+#     item3 = Item()
+#     item3.value = "c"
 
-    item1.next_item = item2
-    item2.next_item = item3
+#     item1.next_item = item2
+#     item2.next_item = item3
+
+#     item_list = List()
+#     item_list.add(item1)
+#     item_list.add(item2)
+#     item_list.add(item3)
+
+#     print(item_list)
+#     print(len(item_list))
+
+
+def main7():
+    item = Item()
+    item.value = "a"
 
     item_list = List()
-    item_list.add(item1)
-    item_list.add(item2)
-    item_list.add(item3)
+
+    item_list.add(item)
 
     print(item_list)
-    print(len(item_list))
 
+    item_list.remove(0)
+
+    print(item_list)
 
 if __name__ == "__main__":
-    main6()
+    main7()
