@@ -1,4 +1,3 @@
-from typing import Any
 from item import Item
 
 
@@ -95,31 +94,18 @@ class List:
         """
         Adds an item or list of items to the list.
         """
-        if type(items) == list:
-            for item in items:
-                self._length += 1
-
-                if self._tail is not None:
-                    current_tail = self._tail
-                    current_tail.next_item = item
-                    item.next_item = None
-                    self._tail = item
-
-                else:
-                    self._head = item
-                    self._tail = item
-        else:
+        for item in items:
             self._length += 1
 
             if self._tail is not None:
                 current_tail = self._tail
-                current_tail.next_item = items
-                items.next_item = None
-                self._tail = items
+                current_tail.next_item = item
+                item.next_item = None
+                self._tail = item
 
             else:
-                self._head = items
-                self._tail = items
+                self._head = item
+                self._tail = item
 
     def _index_is_valid(self, index: int) -> bool:
         """
