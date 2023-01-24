@@ -1,11 +1,18 @@
+from typing import Any
 from item import Item
 
 
 class List:
+    """
+    A list class for storing items.
+    An item has a reference to the next item, but not the previous item.
+    """
+
     # Stores head
     # Iterate over all items
     # Can return specific item
     # Can sort items (optional)
+
     def __init__(self) -> None:
         self._current = None
         self._head = None
@@ -26,7 +33,7 @@ class List:
         self._current = None
         return self
 
-    def __next__(self):
+    def __next__(self) -> Item:
         # If first call return head
         # Get next item if there is one
         # Otherwise raise StopIteration
@@ -51,25 +58,43 @@ class List:
         return self._current
 
     def is_empty(self) -> bool:
+        """
+        Reports if list is empty.
+        """
         return self._head is None
 
     @property
     def head(self) -> Item:
+        """
+        Retrieves head for the list.
+        """
         return self._head
 
     @head.setter
-    def head(self, head):
+    def head(self, head: Item) -> None:
+        """
+        Sets head for the list.
+        """
         self._head = head
 
     @property
     def tail(self) -> Item:
+        """
+        Retrieves tail for the list.
+        """
         return self._tail
 
     @tail.setter
-    def tail(self, tail):
+    def tail(self, tail: Item) -> None:
+        """
+        Sets tail for the list.
+        """
         self._tail = tail
 
     def add(self, items: Item | list) -> None:
+        """
+        Adds an item or list of items to the list.
+        """
         if type(items) == list:
             for item in items:
                 self._length += 1
@@ -97,6 +122,12 @@ class List:
                 self._tail = items
 
     def _index_is_valid(self, index: int) -> bool:
+        """
+        Reports if a given index is valid regarding length of list.
+
+        Raises a TypeError if given index is not an integer.
+        Raises an IndexError if index is out of range.
+        """
         try:
             index = int(index)
         except:
@@ -107,13 +138,19 @@ class List:
 
         return True
 
-    def get(self, index: int):
+    def get(self, index: int) -> Item:
+        """
+        Retrieves an item in the list by given index.
+        """
         if self._index_is_valid(index):
             for _ in self:
                 if self._index == index:
                     return self._current
 
-    def remove(self, index: int):
+    def remove(self, index: int) -> None:
+        """
+        Removes an item in the list by given index.
+        """
         if self._index_is_valid(index):
 
             for item in self:
