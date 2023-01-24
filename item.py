@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 
@@ -31,14 +33,14 @@ class Item:
         self._value = value
 
     @property
-    def next_item(self) -> "Item" | None:
+    def next_item(self) -> Item | None:
         """
         Retrieves the items next item.
         """
         return self._next_item
 
     @next_item.setter
-    def next_item(self, next_item: "Item" | None) -> None:
+    def next_item(self, next_item: Item | None) -> None:
         """
         Sets the next item for the item.
         """
