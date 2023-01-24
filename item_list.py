@@ -69,18 +69,32 @@ class List:
     def tail(self, tail):
         self._tail = tail
 
-    def add(self, item) -> None:
-        self._length += 1
+    def add(self, items: Item | list) -> None:
+        if type(items) == list:
+            for item in items:
+                self._length += 1
 
-        if self._tail is not None:
-            current_tail = self._tail
-            current_tail.next_item = item
-            item.next_item = None
-            self._tail = item
+                if self._tail is not None:
+                    current_tail = self._tail
+                    current_tail.next_item = item
+                    item.next_item = None
+                    self._tail = item
 
+                else:
+                    self._head = item
+                    self._tail = item
         else:
-            self._head = item
-            self._tail = item
+            self._length += 1
+
+            if self._tail is not None:
+                current_tail = self._tail
+                current_tail.next_item = items
+                items.next_item = None
+                self._tail = items
+
+            else:
+                self._head = items
+                self._tail = items
 
     def _index_is_valid(self, index: int) -> bool:
         try:
