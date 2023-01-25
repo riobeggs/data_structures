@@ -164,3 +164,16 @@ class List:
                     # Store deleted items next item as the current items next item
                     item.next_item = next_item.next_item
                     break
+
+    def get_index(self, chosen_item: Item) -> int:
+        """
+        Retrieves the index for an item in the list.
+
+        Raises a value error is the item doesnt exist.
+        """
+        for item in self:
+            if item is chosen_item:
+
+                return self._index
+
+        raise ValueError(f"{chosen_item} is not in list.")

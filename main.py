@@ -125,7 +125,21 @@ from item_list import List
 
 #     print(item_list)
 
-def main8():
+# def main8():
+#     item1 = Item()
+#     item1.value = "a"
+#     item2 = Item()
+#     item2.value = "b"
+#     item3 = Item()
+#     item3.value = "c"
+
+#     item_list = List()
+#     item_list.add([item1, item2, item3])
+
+#     print(item_list)
+
+
+def main9():
     item1 = Item()
     item1.value = "a"
     item2 = Item()
@@ -133,10 +147,20 @@ def main8():
     item3 = Item()
     item3.value = "c"
 
+    bad_item = Item()
+    bad_item.value = "d"
+
     item_list = List()
     item_list.add([item1, item2, item3])
 
-    print(item_list)
+    # Expected to throw a value error.
+    # item_index = item_list.get_index(bad_item)
+    # print(item_index)
+
+    # Expected to return 0
+    item_index = item_list.get_index(item1)
+    print(item_index)
+
 
 if __name__ == "__main__":
-    main8()
+    main9()
