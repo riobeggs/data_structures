@@ -139,28 +139,48 @@ from item_list import List
 #     print(item_list)
 
 
-def main9():
-    item1 = Item()
-    item1.value = "a"
-    item2 = Item()
-    item2.value = "b"
-    item3 = Item()
-    item3.value = "c"
+# def main9():
+#     item1 = Item()
+#     item1.value = "a"
+#     item2 = Item()
+#     item2.value = "b"
+#     item3 = Item()
+#     item3.value = "c"
 
-    bad_item = Item()
-    bad_item.value = "d"
+#     bad_item = Item()
+#     bad_item.value = "d"
+
+#     item_list = List()
+#     item_list.add([item1, item2, item3])
+
+#     # Expected to throw a value error.
+#     # item_index = item_list.get_index(bad_item)
+#     # print(item_index)
+
+#     # Expected to return 0
+#     item_index = item_list.get_index(item1)
+#     print(item_index)
+
+
+def main10():
+    item1 = Item()
+    item1.value = 1
+    item2 = Item()
+    item2.value = 2
+    item3 = Item()
+    item3.value = 3
+    item4 = Item()
+    item4.value = 4
+    item5 = Item()
+    item5.value = 5
 
     item_list = List()
-    item_list.add([item1, item2, item3])
+    item_list.add([item2, item5, item1, item4, item3])
 
-    # Expected to throw a value error.
-    # item_index = item_list.get_index(bad_item)
-    # print(item_index)
+    item_list = item_list.sort()
 
-    # Expected to return 0
-    item_index = item_list.get_index(item1)
-    print(item_index)
+    print(item_list)
 
 
 if __name__ == "__main__":
-    main9()
+    main10()

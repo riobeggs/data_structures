@@ -177,3 +177,49 @@ class List:
                 return self._index
 
         raise ValueError(f"{chosen_item} is not in list.")
+
+    def sort(self) -> None:
+        """
+        Sorts the list in ascending order.
+        """
+        previous_item = None
+        items_sorted = False
+
+        # INTEGERS
+        while not items_sorted:
+
+            passed = 0
+
+            for item in self:
+                
+
+                current = item
+                next = current.next_item
+                nextnext = current.next_item.next_item
+
+                if previous_item is None:
+
+                    if current.value > next.value:
+                        self._head = next
+                        next.next_item = current
+                        current.next_item = nextnext
+                        break
+
+                    previous_item = item
+                    continue
+
+                if current.value > next.value:
+                    previous_item.next_item = next
+                    previous_item.next_item.next_item = current
+                    previous_item.next_item.next_item.next_item = nextnext
+                    previous_item = None
+                    passed = 0
+                    break
+
+                passed += 1
+                previous_item = current
+
+                if passed == self._length:
+                    self._tail = item
+                    items_sorted = True
+                    break
