@@ -1,4 +1,5 @@
 import unittest
+from parameterized import parameterized
 
 from assets.item_list import List as MyList
 
@@ -6,20 +7,20 @@ from assets.item_list import List as MyList
 class TestSorting(unittest.TestCase):
     """Stop complaining about doc strings in tests."""
 
-    def test_initialize(self):
+    @parameterized.expand([([2, 5, 1, 4, 3],), ([1],), (None,)])
+    def test_initialize(self, input_data: list[int]):
         """Tests we can initialize a wide range of inputs."""
-        items: list[int] = [2, 5, 1, 4, 3]
-        item_list: List = MyList(items)
+        item_list: List = MyList(input_data)
         # item_list.add([2, 5, 1, 4, 3])
 
         self.assertEqual(item_list.tail.value, 3)
         self.assertEqual(item_list.head.value, 2)
 
-        for index, item in enumerate(items):
+        for index, item in enumerate(input_data):
             pass
 
         test = [item.value for item in item_list]
-        expected = items
+        expected = input_data
         self.assertEqual(test, expected)
 
         # # Arrange
