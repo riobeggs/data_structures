@@ -1,4 +1,6 @@
-from item import Item
+from typing import List as TList
+
+from assets.item import Item
 
 
 class List:
@@ -12,12 +14,39 @@ class List:
     # Can return specific item
     # Can sort items (optional)
 
-    def __init__(self) -> None:
-        self._current = None
-        self._head = None
-        self._tail = None
-        self._index = None
-        self._length = 0
+    def __init__(self, items: int | list[int]) -> None:
+        self._current: None | Item = None
+        self._head: None | Item = None
+        self._tail: None | Item = None
+        self._index: None | int = None
+        self._length: int = 0
+
+        if isinstance(items, list):
+
+            previous_item: None | Item = None
+
+            for index, value in enumerate(items):
+
+                item: Item = Item()
+                item.value = value
+
+                if previous_item is None:
+                    previous_item = item
+                    self._head = item
+
+                else:
+                    previous_item.next_item = item
+
+                if (index + 1) is len(items):
+                    self._tail = item
+
+                previous_item = item
+
+        else:
+            item: Item = Item()
+            item.value = items
+            self._head = item
+            self._tail = item
 
     def __str__(self) -> str:
         items = ", ".join([f"'{str(item)}'" for item in self])
@@ -90,7 +119,7 @@ class List:
         """
         self._tail = tail
 
-    def add(self, items: Item | list) -> None:
+    def add(self, items: Item | TList[Item]) -> None:
         """
         Adds an item or list of items to the list.
         """
@@ -182,44 +211,68 @@ class List:
         """
         Sorts the list in ascending order.
         """
-        previous_item = None
-        items_sorted = False
+        previous_item: None | Item = None
+        items_sorted: bool = False
 
-        # INTEGERS
         while not items_sorted:
 
-            passed = 0
-
             for item in self:
-                
 
-                current = item
-                next = current.next_item
-                nextnext = current.next_item.next_item
+                previous: None | Item = previous_item
+                current: Item = item
+                next: Item | None = item.next_item
 
-                if previous_item is None:
+                if next is None:
+                    items_sorted = True
+                    break
+
+                # if ne
+
+                if previous is None:
 
                     if current.value > next.value:
                         self._head = next
-                        next.next_item = current
-                        current.next_item = nextnext
-                        break
+                        current.next_item = next.next_item
 
-                    previous_item = item
-                    continue
+                else:
+                    pass
 
-                if current.value > next.value:
-                    previous_item.next_item = next
-                    previous_item.next_item.next_item = current
-                    previous_item.next_item.next_item.next_item = nextnext
-                    previous_item = None
-                    passed = 0
-                    break
-
-                passed += 1
                 previous_item = current
 
-                if passed == self._length:
-                    self._tail = item
-                    items_sorted = True
-                    break
+        # INTEGERS
+        # while not items_sorted:
+
+        #     passed = 0
+
+        #     for item in self:
+
+        #         current = item
+        #         next = current.next_item
+        #         nextnext = current.next_item.next_item
+
+        #         if previous_item is None:
+
+        #             if current.value > next.value:
+        #                 self._head = next
+        #                 next.next_item = current
+        #                 current.next_item = nextnext
+        #                 break
+
+        #             previous_item = item
+        #             continue
+
+        #         if current.value > next.value:
+        #             previous_item.next_item = next
+        #             previous_item.next_item.next_item = current
+        #             previous_item.next_item.next_item.next_item = nextnext
+        #             previous_item = None
+        #             passed = 0
+        #             break
+
+        #         passed += 1
+        #         previous_item = current
+
+        #         if passed == self._length:
+        #             self._tail = item
+        #             items_sorted = True
+        #             break
