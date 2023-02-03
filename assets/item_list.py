@@ -145,8 +145,8 @@ class List:
         """
         try:
             index = int(index)
-        except:
-            raise TypeError(index, "is not an integer.")
+        except Exception as exc:
+            raise TypeError(index, "is not an integer.") from exc
 
         if index >= self._length:
             raise IndexError(index, "out of range.")
@@ -211,68 +211,41 @@ class List:
         """
         Sorts the list in ascending order.
         """
-        previous_item: None | Item = None
+        previous_node = None
         items_sorted: bool = False
 
+        # INTEGERS
         while not items_sorted:
 
             for item in self:
 
-                previous: None | Item = previous_item
-                current: Item = item
-                next: Item | None = item.next_item
+                current_node = item
+                next_node = item.next_item
 
-                if next is None:
+                if current_node is self._tail:
                     items_sorted = True
                     break
 
-                # if ne
+                if current_node.value > next_node.value:
 
-                if previous is None:
+                    if current_node is self._head:
+                        self._head = next_node
+                        previous_node = current_node
+                        current_node.next_item = next_node.next_item
+                        next_node.next_item = current_node
+                        continue
 
-                    if current.value > next.value:
-                        self._head = next
-                        current.next_item = next.next_item
+                    if next_node.next_item is None:
+                        self._tail = current_node
+                        previous_node.next_item = next_node
+                        current_node.next_item = None
+                        next_node.next_item = current_node
+                        continue
 
-                else:
-                    pass
+                    previous_node.next_item = next_node
+                    current_node.next_item = next_node.next_item
+                    next_node.next_item = current_node
+                    previous_node = current_node
+                    break
 
-                previous_item = current
-
-        # INTEGERS
-        # while not items_sorted:
-
-        #     passed = 0
-
-        #     for item in self:
-
-        #         current = item
-        #         next = current.next_item
-        #         nextnext = current.next_item.next_item
-
-        #         if previous_item is None:
-
-        #             if current.value > next.value:
-        #                 self._head = next
-        #                 next.next_item = current
-        #                 current.next_item = nextnext
-        #                 break
-
-        #             previous_item = item
-        #             continue
-
-        #         if current.value > next.value:
-        #             previous_item.next_item = next
-        #             previous_item.next_item.next_item = current
-        #             previous_item.next_item.next_item.next_item = nextnext
-        #             previous_item = None
-        #             passed = 0
-        #             break
-
-        #         passed += 1
-        #         previous_item = current
-
-        #         if passed == self._length:
-        #             self._tail = item
-        #             items_sorted = True
-        #             break
+                previous_node = current_node
