@@ -222,6 +222,7 @@ class List:
                 current_node = item
                 next_node = item.next_item
 
+                # If end of list, items are sorted.
                 if current_node is self._tail:
                     items_sorted = True
                     break
@@ -231,21 +232,17 @@ class List:
                     if current_node is self._head:
                         self._head = next_node
                         previous_node = current_node
-                        current_node.next_item = next_node.next_item
-                        next_node.next_item = current_node
-                        continue
 
-                    if next_node.next_item is None:
+                    elif next_node.next_item is None:
                         self._tail = current_node
                         previous_node.next_item = next_node
-                        current_node.next_item = None
-                        next_node.next_item = current_node
-                        continue
 
-                    previous_node.next_item = next_node
+                    else:
+                        previous_node.next_item = next_node
+
+                    previous_node = current_node
                     current_node.next_item = next_node.next_item
                     next_node.next_item = current_node
-                    previous_node = current_node
                     break
 
                 previous_node = current_node
