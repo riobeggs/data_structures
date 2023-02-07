@@ -120,11 +120,20 @@ class List:
         """
         self._tail = tail
 
-    def add(self, items: Item | TList[Item]) -> None:
+    def add(self, items: Item | TList[Item] | int | str) -> None:
         """
         Adds an item or list of items to the list.
         """
-        for item in items:
+        if items is None:
+            raise ValueError()
+
+        if not isinstance(items, list):
+            items = [items]
+
+        for val in items:
+
+            item: Item = Item()
+            item.value = val
             self._length += 1
 
             if self._tail is not None:
