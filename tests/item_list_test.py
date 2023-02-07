@@ -30,12 +30,26 @@ class Tests(unittest.TestCase):
         self.assertEqual(tail, expected_tail)
         self.assertEqual(length, expected_length)
 
+        # TODO: Dissallow adding of None to list.
+
     @parameterized.expand(
         [
-            ([2, 5, 1, 4, 3], "['test', '2', '5', '1', '4', '3']"),
-            (1, "['test', '1']"),
-            ("Hello", "['test', 'Hello']"),
-            (None, "['test']"),
+            (
+                [2, 5, 1, 4, 3],
+                "['test', '2', '5', '1', '4', '3']",
+            ),
+            (
+                1,
+                "['test', '1']",
+            ),
+            (
+                "Hello",
+                "['test', 'Hello']",
+            ),
+            (
+                None,
+                "['test']",
+            ),
         ]
     )
     def test_adding(
@@ -56,3 +70,42 @@ class Tests(unittest.TestCase):
 
         # Assert
         self.assertEqual(str(item_list), expected_list)
+
+    @parameterized.expand(
+        [
+            (
+                [2, 0, 1, -13, 5, 4, 1000009, 3],
+                "['-13', '0', '1', '2', '3', '4', '5', '1000009']",
+            ),
+            (
+                [1, "Hello"],
+                None,
+            ),
+            (
+                ["Hello"],
+                "['Hello']",
+            ),
+            (
+                [1],
+                "['1']",
+            ),
+        ]
+    )
+    def test_integer_sorting(self, data, expected):
+        """Tests we can sort a list of integers in ascending order."""
+
+        item_list = MyList(data)
+
+        if all(isinstance(value, int) for value in data):
+            item_list.sort()
+            actual = str(item_list)
+            self.assertEqual(actual, expected)
+
+        elif all(isinstance(value, str) for value in data):
+            item_list.sort()
+            actual = str(item_list)
+            self.assertEqual(actual, expected)
+
+        else:
+            with self.assertRaises(TypeError):
+                item_list.sort()

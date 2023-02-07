@@ -229,6 +229,10 @@ class List:
 
             for item in self:
 
+                if previous_node is not None:
+                    if isinstance(type(item.value), type(previous_node.value)):
+                        raise TypeError()
+
                 current_node = item
                 next_node = item.next_item
 
