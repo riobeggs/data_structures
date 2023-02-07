@@ -45,6 +45,7 @@ class Tests(unittest.TestCase):
     ):
         """Tests we can add different data types to the item list."""
 
+        # Act
         item_list = MyList("test")
 
         if input_data is None:
@@ -53,4 +54,5 @@ class Tests(unittest.TestCase):
         else:
             item_list.add(input_data)
 
+        # Assert
         self.assertEqual(str(item_list), expected_list)
