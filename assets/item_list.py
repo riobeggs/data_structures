@@ -26,6 +26,7 @@ class List:
             previous_item: None | Item = None
 
             for index, value in enumerate(items):
+                self._length += 1
 
                 item: Item = Item()
                 item.value = value
