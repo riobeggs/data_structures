@@ -151,3 +151,29 @@ class Tests(unittest.TestCase):
             item_list.get(out_of_range_index)
         with self.assertRaises(TypeError):
             item_list.get(not_an_int_index)
+
+    @parameterized.expand(
+        [
+            (
+                [2, 5, 1, 4, 3],
+                4,
+                3,
+                "fail",
+            )
+        ]
+    )
+    def test_get_index_of_item(self, data, value, expected_index, invalid_value):
+        """Tests we can get the index of an item in the list."""
+
+        item_list = MyList(data)
+        chosen_item = None
+
+        for item in item_list:
+            if item.value is value:
+                chosen_item = item
+
+        actual_index = item_list.get_index(chosen_item)
+
+        self.assertEqual(actual_index, expected_index)
+        with self.assertRaises(ValueError):
+            item_list.get_index(invalid_value)
