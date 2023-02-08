@@ -116,3 +116,38 @@ class Tests(unittest.TestCase):
         else:
             with self.assertRaises(TypeError):
                 item_list.sort()
+
+    @parameterized.expand(
+        [
+            (
+                [2, 5, 1, 4, 3],
+                1,
+                7,
+                "not_an_int",
+                5,
+            )
+        ]
+    )
+    def test_get_item_by_index(
+        self,
+        data,
+        index,
+        out_of_range_index,
+        not_an_int_index,
+        expected,
+    ):
+        """Tests we can get an item by its index."""
+
+        item_list = MyList(data)
+
+        item = item_list.get(index)
+        actual = item.value
+
+        self.assertEqual(
+            actual,
+            expected,
+        )
+        with self.assertRaises(IndexError):
+            item_list.get(out_of_range_index)
+        with self.assertRaises(TypeError):
+            item_list.get(not_an_int_index)
