@@ -21,6 +21,9 @@ class List:
         self._index: None | int = None
         self._length: int = 0
 
+        if items is None:
+            raise ValueError("Cannot add None to list")
+
         if isinstance(items, list):
 
             previous_item: None | Item = None
