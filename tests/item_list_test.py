@@ -44,18 +44,22 @@ class Tests(unittest.TestCase):
             (
                 [2, 5, 1, 4, 3],
                 "['test', '2', '5', '1', '4', '3']",
+                3,
             ),
             (
                 1,
                 "['test', '1']",
+                1,
             ),
             (
                 "Hello",
                 "['test', 'Hello']",
+                "Hello",
             ),
             (
                 None,
                 "['test']",
+                "test",
             ),
         ]
     )
@@ -63,6 +67,7 @@ class Tests(unittest.TestCase):
         self,
         input_data: list[int] | None,
         expected_list,
+        expected_tail,
     ):
         """Tests we can add different data types to the item list."""
 
@@ -75,8 +80,11 @@ class Tests(unittest.TestCase):
         else:
             item_list.add(input_data)
 
+        actual_tail = item_list.tail.value
+
         # Assert
         self.assertEqual(str(item_list), expected_list)
+        self.assertEqual(actual_tail, expected_tail)
 
     @parameterized.expand(
         [
