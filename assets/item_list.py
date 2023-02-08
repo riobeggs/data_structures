@@ -14,7 +14,7 @@ class List:
     # Can return specific item
     # Can sort items (optional)
 
-    def __init__(self, items: int | list) -> None:
+    def __init__(self, items: int | list[int]) -> None:
         self._current: None | Item = None
         self._head: None | Item = None
         self._tail: None | Item = None
