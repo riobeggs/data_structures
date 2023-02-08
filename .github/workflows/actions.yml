@@ -26,6 +26,6 @@ jobs:
           black .
         continue-on-error: true          
 
-      - name: Test with unittest
+      - name: Test item_list with unittest
         run: |
           python3 -m unittest tests/item_list_test.py
