@@ -177,3 +177,26 @@ class Tests(unittest.TestCase):
         self.assertEqual(actual_index, expected_index)
         with self.assertRaises(ValueError):
             item_list.get_index(invalid_value)
+
+    @parameterized.expand(
+        [
+            (
+                [2, 5, 1, 4, 3],
+                2,
+                "['2', '5', '4', '3']",
+                10,
+            )
+        ]
+    )
+    def test_removing(self, data, index, expected, out_of_range_index):
+        """Tests we can remove an item by index."""
+
+        item_list = MyList(data)
+        item_list.remove(index)
+
+        actual = str(item_list)
+
+        self.assertEqual(actual, expected)
+
+        with self.assertRaises(IndexError):
+            item_list.remove(out_of_range_index)
