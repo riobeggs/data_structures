@@ -36,7 +36,7 @@ class Tests(unittest.TestCase):
 
         else:
 
-            with self.assertRaises(TypeError):
+            with self.assertRaises(ValueError):
                 MyList(input_data)
 
     @parameterized.expand(
