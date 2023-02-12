@@ -156,10 +156,8 @@ class List:
         Raises a TypeError if given index is not an integer.
         Raises an IndexError if index is out of range.
         """
-        try:
-            index = int(index)
-        except Exception as exc:
-            raise TypeError(index, "is not an integer.") from exc
+        if not isinstance(index, int):
+            raise TypeError(index, "is not an integer.")
 
         if index >= self._length:
             raise IndexError(index, "out of range.")
@@ -207,20 +205,28 @@ class List:
                     item.next_item = next_item.next_item
                     break
 
-    def get_index(self, chosen_item: Item) -> int:
+    def get_index(self, chosen_item: Item | int) -> int:
         """
         Retrieves the index for an item in the list.
 
         Raises a value error is the item doesnt exist.
         """
+        if isinstance(chosen_item, Item):
+            for item in self:
+                if item is chosen_item:
+
+                    return self._index
+
+            raise ValueError(f"{chosen_item} is not in list.")
+
         for item in self:
-            if item is chosen_item:
+            if item.value is chosen_item:
 
                 return self._index
 
         raise ValueError(f"{chosen_item} is not in list.")
 
-    def sort(self) -> None:
+    def sort_integers(self) -> None:
         """
         Sorts the list in ascending order.
         """
@@ -231,6 +237,9 @@ class List:
         while not items_sorted:
 
             for item in self:
+
+                if not isinstance(item.value, int):
+                    raise TypeError()
 
                 if previous_node is not None:
                     if isinstance(type(item.value), type(previous_node.value)):
