@@ -31,7 +31,7 @@ class InitTests(unittest.TestCase):
         self.assertEqual(length, expected_length)
 
     @parameterized.expand([([None])])
-    def test_raises_valueerror(self, input_data):
+    def test_initializing_none_fails(self, input_data):
         """Tests that initializer raises ValueError when None passed in."""
 
         with self.assertRaises(ValueError):
@@ -75,7 +75,7 @@ class AddingTests(unittest.TestCase):
         self.assertEqual(actual_tail, expected_tail)
 
     @parameterized.expand([([None])])
-    def test_raises_valueerror(self, input_data):
+    def test_adding_none_fails(self, input_data):
         """Tests that adding method raises a ValueError when trying to add None."""
 
         item_list = MyList("test")
@@ -93,7 +93,7 @@ class IntegerSortingTests(unittest.TestCase):
             (["Fail1", "Fail2"],),
         ]
     )
-    def test_raises_typeerror(self, input_data):
+    def test_sorting_non_integers_fails(self, input_data):
         """Tests sorting method raises TypeError when to sorting items that are not integers."""
 
         item_list = MyList(input_data)
@@ -119,7 +119,7 @@ class GetItemByIndexTests(unittest.TestCase):
     """Tests we can get an item in the list by its index."""
 
     @parameterized.expand([([5, 10, 15, 20, 25], 7)])
-    def test_raises_indexerror(self, input_data, index):
+    def test_out_of_range_index_fails(self, input_data, index):
         """Tests method raises IndexError when index passed in is out of range."""
 
         item_list = MyList(input_data)
@@ -128,7 +128,7 @@ class GetItemByIndexTests(unittest.TestCase):
             item_list.get(index)
 
     @parameterized.expand([([5, 10, 15, 20, 25], "7")])
-    def test_raises_typeerror(self, input_data, index):
+    def test_wrong_index_type_fails(self, input_data, index):
         """Tests method raises TypeError when index passed in is not an integer."""
 
         item_list = MyList(input_data)
@@ -162,7 +162,7 @@ class GetIndexOfItemTest(unittest.TestCase):
         self.assertEqual(actual_index, expected_index)
 
     @parameterized.expand([([2, 5, 1, 4, 3], 6)])
-    def test_raises_valueerror(self, input_data, item):
+    def test_get_nonexistent_item_fails(self, input_data, item):
         """Tests method raises a ValueError when item is not in the list."""
 
         item_list = MyList(input_data)
@@ -192,7 +192,7 @@ class RemovingTests(unittest.TestCase):
         self.assertEqual(actual_list, expected_list)
 
     @parameterized.expand([([1, 2, 3, 4, 5], 6)])
-    def test_raises_indexerror(self, input_data, index):
+    def test_out_of_range_index_fails(self, input_data, index):
         """Tests method raises an IndexError when index is out of range."""
 
         item_list = MyList(input_data)
