@@ -53,10 +53,18 @@ class List:
             self._tail = item
 
     def __str__(self) -> str:
-        items = ", ".join([f"'{str(item)}'" for item in self])
-        item_list = f"[{items}]"
+        items = []
+        for item in self:
+            items.append(item.value)
+
+        item_list = f"{items}"
 
         return item_list
+
+        # items = ", ".join([f"{str(item)}" for item in self])
+        # item_list = f"[{items}]"
+
+        # return item_list
 
     def __len__(self) -> int:
         return self._length

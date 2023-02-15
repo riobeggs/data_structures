@@ -45,12 +45,12 @@ class AddingTests(unittest.TestCase):
         [
             (
                 [2, 5, 1, 4, 3],
-                "['test', '2', '5', '1', '4', '3']",
+                "['test', 2, 5, 1, 4, 3]",
                 3,
             ),
             (
                 1,
-                "['test', '1']",
+                "['test', 1]",
                 1,
             ),
             (
@@ -101,9 +101,7 @@ class IntegerSortingTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             item_list.sort_integers()
 
-    @parameterized.expand(
-        [([2, 5, 1, 4, 3, 0, -1], "['-1', '0', '1', '2', '3', '4', '5']")]
-    )
+    @parameterized.expand([([2, 5, 1, 4, 3, 0, -1], "[-1, 0, 1, 2, 3, 4, 5]")])
     def test_sorts_integers(self, input_data, expected_list):
         """Tests we can sort a list of integers in ascending order."""
 
@@ -176,9 +174,9 @@ class RemovingTests(unittest.TestCase):
 
     @parameterized.expand(
         [
-            ([1, 2, 3, 4, 5], 0, "['2', '3', '4', '5']"),
-            ([1, 2, 3, 4, 5], 4, "['1', '2', '3', '4']"),
-            ([1, 2, 3, 4, 5], 2, "['1', '2', '4', '5']"),
+            ([1, 2, 3, 4, 5], 0, "[2, 3, 4, 5]"),
+            ([1, 2, 3, 4, 5], 4, "[1, 2, 3, 4]"),
+            ([1, 2, 3, 4, 5], 2, "[1, 2, 4, 5]"),
         ]
     )
     def test_removes_item(self, input_data, index, expected_list):
