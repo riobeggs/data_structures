@@ -1,4 +1,5 @@
 import unittest
+
 from parameterized import parameterized
 
 from assets.item_list import List as MyList
@@ -10,9 +11,9 @@ class InitTests(unittest.TestCase):
     @parameterized.expand([([2, 5, 1, 4, 3], 2, 3), ([1], 1, 1)])
     def test_initialize(
         self,
-        input_data: list[int] | None,
-        expected_head: int | None,
-        expected_tail: int | None,
+        input_data: list[int],
+        expected_head: int,
+        expected_tail: int,
     ):
         """Tests we can initialize a wide range of inputs."""
 
@@ -31,7 +32,7 @@ class InitTests(unittest.TestCase):
         self.assertEqual(length, expected_length)
 
     @parameterized.expand([([None])])
-    def test_initializing_none_fails(self, input_data):
+    def test_initializing_none_fails(self, input_data: None):
         """Tests that initializer raises ValueError when None passed in."""
 
         with self.assertRaises(ValueError):
@@ -60,7 +61,9 @@ class AddingTests(unittest.TestCase):
             ),
         ]
     )
-    def test_adding(self, input_data, expected_list, expected_tail):
+    def test_adding(
+        self, input_data: list, expected_list: list, expected_tail: int | str
+    ):
         """Tests we can add different data types to the item list."""
 
         # Act
@@ -75,7 +78,7 @@ class AddingTests(unittest.TestCase):
         self.assertEqual(actual_tail, expected_tail)
 
     @parameterized.expand([([None])])
-    def test_adding_none_fails(self, input_data):
+    def test_adding_none_fails(self, input_data: None):
         """Tests that adding method raises a ValueError when trying to add None."""
 
         item_list = MyList("test")
@@ -93,7 +96,7 @@ class IntegerSortingTests(unittest.TestCase):
             (["Fail1", "Fail2"],),
         ]
     )
-    def test_sorting_non_integers_fails(self, input_data):
+    def test_sorting_non_integers_fails(self, input_data: list):
         """Tests sorting method raises TypeError when to sorting items that are not integers."""
 
         item_list = MyList(input_data)
@@ -102,7 +105,7 @@ class IntegerSortingTests(unittest.TestCase):
             item_list.sort_integers()
 
     @parameterized.expand([([2, 5, 1, 4, 3, 0, -1], "[-1, 0, 1, 2, 3, 4, 5]")])
-    def test_sorts_integers(self, input_data, expected_list):
+    def test_sorts_integers(self, input_data: list[int], expected_list: str):
         """Tests we can sort a list of integers in ascending order."""
 
         item_list = MyList(input_data)
@@ -117,7 +120,7 @@ class GetItemByIndexTests(unittest.TestCase):
     """Tests we can get an item in the list by its index."""
 
     @parameterized.expand([([5, 10, 15, 20, 25], 7)])
-    def test_out_of_range_index_fails(self, input_data, index):
+    def test_out_of_range_index_fails(self, input_data: list[int], index: int):
         """Tests method raises IndexError when index passed in is out of range."""
 
         item_list = MyList(input_data)
@@ -126,7 +129,7 @@ class GetItemByIndexTests(unittest.TestCase):
             item_list.get(index)
 
     @parameterized.expand([([5, 10, 15, 20, 25], "7")])
-    def test_wrong_index_type_fails(self, input_data, index):
+    def test_wrong_index_type_fails(self, input_data: list[int], index: str):
         """Tests method raises TypeError when index passed in is not an integer."""
 
         item_list = MyList(input_data)
@@ -135,7 +138,7 @@ class GetItemByIndexTests(unittest.TestCase):
             item_list.get(index)
 
     @parameterized.expand([([5, 10, 15, 20, 25], 2, 15)])
-    def test_gets_item(self, input_data, index, expected_item):
+    def test_gets_item(self, input_data: list[int], index: int, expected_item: int):
         """Tests gets correct item in list by index."""
 
         item_list = MyList(input_data)
@@ -150,7 +153,7 @@ class GetIndexOfItemTest(unittest.TestCase):
     """Tests we can get the index of an item in the list."""
 
     @parameterized.expand([([2, 5, 1, 4, 3], 5, 1)])
-    def test_gets_index(self, input_data, item, expected_index):
+    def test_gets_index(self, input_data: list[int], item: int, expected_index: int):
         """Tests method retrieves correct index of an item in the list."""
 
         item_list = MyList(input_data)
@@ -160,7 +163,7 @@ class GetIndexOfItemTest(unittest.TestCase):
         self.assertEqual(actual_index, expected_index)
 
     @parameterized.expand([([2, 5, 1, 4, 3], 6)])
-    def test_get_nonexistent_item_fails(self, input_data, item):
+    def test_get_nonexistent_item_fails(self, input_data: list[int], item: int):
         """Tests method raises a ValueError when item is not in the list."""
 
         item_list = MyList(input_data)
@@ -179,7 +182,7 @@ class RemovingTests(unittest.TestCase):
             ([1, 2, 3, 4, 5], 2, "[1, 2, 4, 5]"),
         ]
     )
-    def test_removes_item(self, input_data, index, expected_list):
+    def test_removes_item(self, input_data: list[int], index: int, expected_list: str):
         """Tests method removes correct item."""
 
         item_list = MyList(input_data)
@@ -190,7 +193,7 @@ class RemovingTests(unittest.TestCase):
         self.assertEqual(actual_list, expected_list)
 
     @parameterized.expand([([1, 2, 3, 4, 5], 6)])
-    def test_out_of_range_index_fails(self, input_data, index):
+    def test_out_of_range_index_fails(self, input_data: list[int], index: int):
         """Tests method raises an IndexError when index is out of range."""
 
         item_list = MyList(input_data)
