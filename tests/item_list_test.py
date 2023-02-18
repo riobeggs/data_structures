@@ -8,12 +8,10 @@ from assets.item_list import List as MyList
 class InitTests(unittest.TestCase):
     """Tests initializer runs as it should."""
 
-    @parameterized.expand([([2, 5, 1, 4, 3], 2, 3), ([1], 1, 1)])
+    @parameterized.expand([([2, 5, 1, 4, 3],), ([1],)])
     def test_initialize(
         self,
         input_data: list[int],
-        expected_head: int,
-        expected_tail: int,
     ):
         """Tests we can initialize a wide range of inputs."""
 
@@ -22,13 +20,9 @@ class InitTests(unittest.TestCase):
 
         # Arrange
         expected_length = len(input_data)
-        head = input_data[0]
-        tail = input_data[-1]
         length = len(item_list)
 
         # Assert
-        self.assertEqual(head, expected_head)
-        self.assertEqual(tail, expected_tail)
         self.assertEqual(length, expected_length)
 
     @parameterized.expand([([None])])
