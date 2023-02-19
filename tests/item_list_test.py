@@ -8,7 +8,12 @@ from assets.item_list import List as MyList
 class InitTests(unittest.TestCase):
     """Tests initializer runs as it should."""
 
-    @parameterized.expand([([2, 5, 1, 4, 3],), ([1],)])
+    @parameterized.expand(
+        [
+            ([2, 5, 1, 4, 3],),
+            ([1],),
+        ]
+    )
     def test_initialize(
         self,
         input_data: list[int],
@@ -28,7 +33,7 @@ class InitTests(unittest.TestCase):
     def test_initializing_none_fails(self):
         """Tests that initializer raises ValueError when None passed in."""
 
-        input_data = None
+        input_data = [1, None, 3]
         expected_exception = "Cannot add None to list"
 
         with self.assertRaises(ValueError) as error_context:
@@ -37,6 +42,17 @@ class InitTests(unittest.TestCase):
         actual_exception = str(error_context.exception)
 
         self.assertEqual(actual_exception, expected_exception)
+
+    def test_empty_initialize(self):
+        """Tests we can initialize with no parameters and create an empty list."""
+
+        expected_list = "[]"
+
+        item_list = MyList()
+
+        actual_list = str(item_list)
+
+        self.assertEqual(actual_list, expected_list)
 
 
 class AddingTests(unittest.TestCase):

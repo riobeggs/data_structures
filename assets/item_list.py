@@ -12,43 +12,48 @@ class List:
     # Can return specific item
     # Can sort items (optional)
 
-    def __init__(self, items: int | str | list[int] | list[str]) -> None:
+    def __init__(self, items: int | str | list[int] | list[str] = None) -> None:
         self._current: None | Item = None
         self._head: None | Item = None
         self._tail: None | Item = None
         self._index: None | int = None
         self._length: int = 0
 
-        if items is None:
-            raise ValueError("Cannot add None to list")
+        if items is not None:
 
-        if isinstance(items, list):
+            # raise ValueError("Cannot add None to list")
 
-            previous_item: None | Item = None
+            if isinstance(items, list):
 
-            for index, value in enumerate(items):
-                self._length += 1
+                previous_item: None | Item = None
 
-                item: Item = Item()
-                item.value = value
+                for index, value in enumerate(items):
 
-                if previous_item is None:
+                    if value is None:
+                        raise ValueError("Cannot add None to list")
+
+                    self._length += 1
+
+                    item: Item = Item()
+                    item.value = value
+
+                    if previous_item is None:
+                        previous_item = item
+                        self._head = item
+
+                    else:
+                        previous_item.next_item = item
+
+                    if (index + 1) is len(items):
+                        self._tail = item
+
                     previous_item = item
-                    self._head = item
 
-                else:
-                    previous_item.next_item = item
-
-                if (index + 1) is len(items):
-                    self._tail = item
-
-                previous_item = item
-
-        else:
-            item: Item = Item()
-            item.value = items
-            self._head = item
-            self._tail = item
+            else:
+                item: Item = Item()
+                item.value = items
+                self._head = item
+                self._tail = item
 
     def __str__(self) -> str:
         items = []
