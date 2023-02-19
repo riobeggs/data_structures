@@ -136,7 +136,7 @@ class List:
         Adds an item or list of items to the list.
         """
         if items is None:
-            raise ValueError()
+            raise ValueError("Cannot add None to list")
 
         if not isinstance(items, list):
             items = [items]
@@ -165,10 +165,10 @@ class List:
         Raises an IndexError if index is out of range.
         """
         if not isinstance(index, int):
-            raise TypeError(index, "is not an integer.")
+            raise TypeError(f"{index} is not an integer")
 
         if index >= self._length:
-            raise IndexError(index, "out of range.")
+            raise IndexError(f"{index} is out of range")
 
         return True
 
@@ -225,14 +225,14 @@ class List:
 
                     return self._index
 
-            raise ValueError(f"{chosen_item} is not in list.")
+            raise ValueError(f"{chosen_item} is not in list")
 
         for item in self:
             if item.value is chosen_item:
 
                 return self._index
 
-        raise ValueError(f"{chosen_item} is not in list.")
+        raise ValueError(f"{chosen_item} is not in list")
 
     def sort_integers(self) -> None:
         """
@@ -246,15 +246,18 @@ class List:
 
             for item in self:
 
-                if not isinstance(item.value, int):
-                    raise TypeError()
-
-                if previous_node is not None:
-                    if isinstance(type(item.value), type(previous_node.value)):
-                        raise TypeError()
-
                 current_node = item
                 next_node = item.next_item
+
+                if not isinstance(current_node.value, int):
+                    raise TypeError("Cannot sort non-integers")
+
+                if next_node is not None and not isinstance(
+                    current_node.value, type(next_node.value)
+                ):
+                    raise TypeError(
+                        f"Cannot sort both {type(current_node.value)} and {type(next_node.value)}"
+                    )
 
                 # If end of list, items are sorted.
                 if current_node is self._tail:

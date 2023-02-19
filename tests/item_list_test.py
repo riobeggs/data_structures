@@ -29,9 +29,14 @@ class InitTests(unittest.TestCase):
         """Tests that initializer raises ValueError when None passed in."""
 
         input_data = None
+        expected_exception = "Cannot add None to list"
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as error_context:
             MyList(input_data)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
 
 class AddingTests(unittest.TestCase):
@@ -76,29 +81,50 @@ class AddingTests(unittest.TestCase):
         """Tests that adding method raises a ValueError when trying to add None."""
 
         input_data = None
+        expected_exception = "Cannot add None to list"
 
         item_list = MyList("test")
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as error_context:
             item_list.add(input_data)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
 
 class IntegerSortingTests(unittest.TestCase):
     """Tests that sorting method runs as it should."""
 
-    @parameterized.expand(
-        [
-            ([1, "Fail"],),
-            (["Fail1", "Fail2"],),
-        ]
-    )
-    def test_sorting_non_integers_fails(self, input_data: list):
+    def test_sorting_non_integers_fails(self):
         """Tests sorting method raises TypeError when to sorting items that are not integers."""
+
+        input_data = ["Fail1", "Fail2"]
+        expected_exception = "Cannot sort non-integers"
 
         item_list = MyList(input_data)
 
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as error_context:
             item_list.sort_integers()
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
+
+    def test_sorting_multiple_types_fails(self):
+        """Tests sorting method raises TypeError when trying to sort a list of multiple types."""
+
+        input_data = [1, "2", 3]
+        expected_exception = "Cannot sort both <class 'int'> and <class 'str'>"
+
+        item_list = MyList(input_data)
+
+        with self.assertRaises(TypeError) as error_context:
+            item_list.sort_integers()
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
     def test_sorts_integers(self):
         """Tests we can sort a list of integers in ascending order."""
@@ -122,22 +148,32 @@ class GetItemByIndexTests(unittest.TestCase):
 
         input_data = [5, 10, 15, 20, 25]
         index = 7
+        expected_exception = "7 is out of range"
 
         item_list = MyList(input_data)
 
-        with self.assertRaises(IndexError):
+        with self.assertRaises(IndexError) as error_context:
             item_list.get(index)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
     def test_wrong_index_type_fails(self):
         """Tests method raises TypeError when index passed in is not an integer."""
 
         input_data = [5, 10, 15, 20, 25]
         index = "7"
+        expected_exception = "7 is not an integer"
 
         item_list = MyList(input_data)
 
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as error_context:
             item_list.get(index)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
     def test_gets_item(self):
         """Tests gets correct item in list by index."""
@@ -175,11 +211,16 @@ class GetIndexOfItemTest(unittest.TestCase):
 
         input_data = [2, 5, 1, 4, 3]
         item = 6
+        expected_exception = "6 is not in list"
 
         item_list = MyList(input_data)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as error_context:
             item_list.get_index(item)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
 
 
 class RemovingTests(unittest.TestCase):
@@ -207,8 +248,29 @@ class RemovingTests(unittest.TestCase):
 
         input_data = [2, 5, 1, 4, 3]
         index = 6
+        expected_exception = "6 is out of range"
 
         item_list = MyList(input_data)
 
-        with self.assertRaises(IndexError):
+        with self.assertRaises(IndexError) as error_context:
             item_list.remove(index)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
+
+    def test_wrong_index_type_fails(self):
+        """Tests method raises TypeError when index passed in is not an integer."""
+
+        input_data = [2, 5, 1, 4, 3]
+        index = "6"
+        expected_exception = "6 is not an integer"
+
+        item_list = MyList(input_data)
+
+        with self.assertRaises(TypeError) as error_context:
+            item_list.get(index)
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
