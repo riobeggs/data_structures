@@ -1,5 +1,3 @@
-from typing import List as TList
-
 from assets.item import Item
 
 
@@ -14,7 +12,7 @@ class List:
     # Can return specific item
     # Can sort items (optional)
 
-    def __init__(self, items: int | list[int]) -> None:
+    def __init__(self, items: int | str | list[int] | list[str]) -> None:
         self._current: None | Item = None
         self._head: None | Item = None
         self._tail: None | Item = None
@@ -131,7 +129,7 @@ class List:
         """
         self._tail = tail
 
-    def add(self, items: Item | TList[Item] | int | str) -> None:
+    def add(self, items: Item | int | str | list[Item] | list[int] | list[str]) -> None:
         """
         Adds an item or list of items to the list.
         """
@@ -217,7 +215,7 @@ class List:
                     item.next_item = next_item.next_item
                     break
 
-    def get_index(self, chosen_item: Item | int) -> int:
+    def get_index(self, chosen_item: Item | int | str) -> int:
         """
         Retrieves the index for an item in the list.
 
