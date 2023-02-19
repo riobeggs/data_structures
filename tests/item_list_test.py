@@ -11,12 +11,15 @@ class InitTests(unittest.TestCase):
     @parameterized.expand(
         [
             ([2, 5, 1, 4, 3],),
+            (["2", "5", "1", "4", "3"],),
+            ([1, "2", 3, "4", 5],),
             ([1],),
+            (["Hi"],),
         ]
     )
     def test_initialize(
         self,
-        input_data: list[int],
+        input_data: list | int | str,
     ):
         """Tests we can initialize a wide range of inputs."""
 
