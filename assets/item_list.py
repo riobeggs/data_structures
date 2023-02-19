@@ -164,8 +164,12 @@ class List:
         Raises a TypeError if given index is not an integer.
         Raises an IndexError if index is out of range.
         """
+
         if not isinstance(index, int):
-            raise TypeError(f"{index} is not an integer")
+            try:
+                index = int(index)
+            except Exception as exc:
+                raise TypeError(f"{index} is not an integer") from exc
 
         if index >= self._length:
             raise IndexError(f"{index} is out of range")

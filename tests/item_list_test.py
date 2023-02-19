@@ -143,38 +143,6 @@ class IntegerSortingTests(unittest.TestCase):
 class GetItemByIndexTests(unittest.TestCase):
     """Tests we can get an item in the list by its index."""
 
-    def test_out_of_range_index_fails(self):
-        """Tests method raises IndexError when index passed in is out of range."""
-
-        input_data = [5, 10, 15, 20, 25]
-        index = 7
-        expected_exception = "7 is out of range"
-
-        item_list = MyList(input_data)
-
-        with self.assertRaises(IndexError) as error_context:
-            item_list.get(index)
-
-        actual_exception = str(error_context.exception)
-
-        self.assertEqual(actual_exception, expected_exception)
-
-    def test_wrong_index_type_fails(self):
-        """Tests method raises TypeError when index passed in is not an integer."""
-
-        input_data = [5, 10, 15, 20, 25]
-        index = "7"
-        expected_exception = "7 is not an integer"
-
-        item_list = MyList(input_data)
-
-        with self.assertRaises(TypeError) as error_context:
-            item_list.get(index)
-
-        actual_exception = str(error_context.exception)
-
-        self.assertEqual(actual_exception, expected_exception)
-
     def test_gets_item(self):
         """Tests gets correct item in list by index."""
 
@@ -243,17 +211,21 @@ class RemovingTests(unittest.TestCase):
 
         self.assertEqual(actual_list, expected_list)
 
+
+class ValidIndexTests(unittest.TestCase):
+    """Tests validation of an index for different inputs"""
+
     def test_out_of_range_index_fails(self):
         """Tests method raises an IndexError when index is out of range."""
 
-        input_data = [2, 5, 1, 4, 3]
-        index = 6
-        expected_exception = "6 is out of range"
+        input_data = [1, 2, 3, 4, 5]
+        index = 9
+        expected_exception = "9 is out of range"
 
         item_list = MyList(input_data)
 
         with self.assertRaises(IndexError) as error_context:
-            item_list.remove(index)
+            item_list._index_is_valid(index)
 
         actual_exception = str(error_context.exception)
 
@@ -262,14 +234,14 @@ class RemovingTests(unittest.TestCase):
     def test_wrong_index_type_fails(self):
         """Tests method raises TypeError when index passed in is not an integer."""
 
-        input_data = [2, 5, 1, 4, 3]
-        index = "6"
-        expected_exception = "6 is not an integer"
+        input_data = [1, 2, 3, 4, 5]
+        index = "three"
+        expected_exception = "three is not an integer"
 
         item_list = MyList(input_data)
 
         with self.assertRaises(TypeError) as error_context:
-            item_list.get(index)
+            item_list._index_is_valid(index)
 
         actual_exception = str(error_context.exception)
 
