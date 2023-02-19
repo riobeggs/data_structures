@@ -53,10 +53,18 @@ class List:
             self._tail = item
 
     def __str__(self) -> str:
-        items = ", ".join([f"'{str(item)}'" for item in self])
-        item_list = f"[{items}]"
+        items = []
+        for item in self:
+            items.append(item.value)
+
+        item_list = f"{items}"
 
         return item_list
+
+        # items = ", ".join([f"{str(item)}" for item in self])
+        # item_list = f"[{items}]"
+
+        # return item_list
 
     def __len__(self) -> int:
         return self._length
@@ -128,7 +136,7 @@ class List:
         Adds an item or list of items to the list.
         """
         if items is None:
-            raise ValueError()
+            raise ValueError("Cannot add None to list")
 
         if not isinstance(items, list):
             items = [items]
@@ -156,13 +164,15 @@ class List:
         Raises a TypeError if given index is not an integer.
         Raises an IndexError if index is out of range.
         """
-        try:
-            index = int(index)
-        except Exception as exc:
-            raise TypeError(index, "is not an integer.") from exc
+
+        if not isinstance(index, int):
+            try:
+                index = int(index)
+            except Exception as exc:
+                raise TypeError(f"{index} is not an integer") from exc
 
         if index >= self._length:
-            raise IndexError(index, "out of range.")
+            raise IndexError(f"{index} is out of range")
 
         return True
 
@@ -207,20 +217,28 @@ class List:
                     item.next_item = next_item.next_item
                     break
 
-    def get_index(self, chosen_item: Item) -> int:
+    def get_index(self, chosen_item: Item | int) -> int:
         """
         Retrieves the index for an item in the list.
 
         Raises a value error is the item doesnt exist.
         """
+        if isinstance(chosen_item, Item):
+            for item in self:
+                if item is chosen_item:
+
+                    return self._index
+
+            raise ValueError(f"{chosen_item} is not in list")
+
         for item in self:
-            if item is chosen_item:
+            if item.value is chosen_item:
 
                 return self._index
 
-        raise ValueError(f"{chosen_item} is not in list.")
+        raise ValueError(f"{chosen_item} is not in list")
 
-    def sort(self) -> None:
+    def sort_integers(self) -> None:
         """
         Sorts the list in ascending order.
         """
@@ -232,12 +250,18 @@ class List:
 
             for item in self:
 
-                if previous_node is not None:
-                    if isinstance(type(item.value), type(previous_node.value)):
-                        raise TypeError()
-
                 current_node = item
                 next_node = item.next_item
+
+                if not isinstance(current_node.value, int):
+                    raise TypeError("Cannot sort non-integers")
+
+                if next_node is not None and not isinstance(
+                    current_node.value, type(next_node.value)
+                ):
+                    raise TypeError(
+                        f"Cannot sort both {type(current_node.value)} and {type(next_node.value)}"
+                    )
 
                 # If end of list, items are sorted.
                 if current_node is self._tail:
