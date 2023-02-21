@@ -241,11 +241,12 @@ class List:
 
         raise ValueError(f"{chosen_item} is not in list")
 
-    def sort_integers(self) -> None:
+    def sort(self) -> None:
         """
         Sorts the list in ascending order.
         """
         previous_node = None
+        letter_index = 0
         items_sorted: bool = False
 
         # INTEGERS
@@ -256,9 +257,6 @@ class List:
                 current_node = item
                 next_node = item.next_item
 
-                if not isinstance(current_node.value, int):
-                    raise TypeError("Cannot sort non-integers")
-
                 if next_node is not None and not isinstance(
                     current_node.value, type(next_node.value)
                 ):
@@ -266,12 +264,42 @@ class List:
                         f"Cannot sort both {type(current_node.value)} and {type(next_node.value)}"
                     )
 
+                if not isinstance(current_node.value, str or int):
+                    raise TypeError("Can only sort integers or strings")
+
                 # If end of list, items are sorted.
                 if current_node is self._tail:
                     items_sorted = True
                     break
 
-                if current_node.value > next_node.value:
+                if isinstance(current_node.value, str):
+                    _current = None
+                    _next = None
+
+                    current_word = list(current_node.value)
+                    next_word = list(next_node.value)
+
+                    while _current == _next:
+
+                        try:
+                            current_letter = current_word[letter_index].lower()
+                            next_letter = next_word[letter_index].lower()
+
+                            _current = ord(current_letter) - 96
+                            _next = ord(next_letter) - 96
+
+                            letter_index += 1
+
+                        except:
+                            break
+
+                    letter_index = 0
+
+                if isinstance(current_node.value, int):
+                    _current = current_node.value
+                    _next = next_node.value
+
+                if _current > _next:
 
                     if current_node is self._head:
                         self._head = next_node
