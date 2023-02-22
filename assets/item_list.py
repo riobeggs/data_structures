@@ -248,6 +248,7 @@ class List:
         previous_node = None
         letter_index = 0
         items_sorted: bool = False
+        available_types = [str, int]
 
         # INTEGERS
         while not items_sorted:
@@ -264,7 +265,7 @@ class List:
                         f"Cannot sort both {type(current_node.value)} and {type(next_node.value)}"
                     )
 
-                if not isinstance(current_node.value, str or int):
+                if type(current_node.value) not in available_types:
                     raise TypeError("Can only sort integers or strings")
 
                 # If end of list, items are sorted.

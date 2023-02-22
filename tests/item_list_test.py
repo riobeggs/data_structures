@@ -112,51 +112,51 @@ class AddingTests(unittest.TestCase):
         self.assertEqual(actual_exception, expected_exception)
 
 
-class IntegerSortingTests(unittest.TestCase):
-    """Tests that sorting method runs as it should."""
+# class IntegerSortingTests(unittest.TestCase):
+#     """Tests that sorting method runs as it should."""
 
-    def test_sorting_non_integers_fails(self):
-        """Tests sorting method raises TypeError when to sorting items that are not integers."""
+#     def test_sorting_non_integers_fails(self):
+#         """Tests sorting method raises TypeError when to sorting items that are not integers."""
 
-        input_data = ["Fail1", "Fail2"]
-        expected_exception = "Cannot sort non-integers"
+#         input_data = ["Fail1", "Fail2"]
+#         expected_exception = "Cannot sort non-integers"
 
-        item_list = MyList(input_data)
+#         item_list = MyList(input_data)
 
-        with self.assertRaises(TypeError) as error_context:
-            item_list.sort_integers()
+#         with self.assertRaises(TypeError) as error_context:
+#             item_list.sort_integers()
 
-        actual_exception = str(error_context.exception)
+#         actual_exception = str(error_context.exception)
 
-        self.assertEqual(actual_exception, expected_exception)
+#         self.assertEqual(actual_exception, expected_exception)
 
-    def test_sorting_multiple_types_fails(self):
-        """Tests sorting method raises TypeError when trying to sort a list of multiple types."""
+#     def test_sorting_multiple_types_fails(self):
+#         """Tests sorting method raises TypeError when trying to sort a list of multiple types."""
 
-        input_data = [1, "2", 3]
-        expected_exception = "Cannot sort both <class 'int'> and <class 'str'>"
+#         input_data = [1, "2", 3]
+#         expected_exception = "Cannot sort both <class 'int'> and <class 'str'>"
 
-        item_list = MyList(input_data)
+#         item_list = MyList(input_data)
 
-        with self.assertRaises(TypeError) as error_context:
-            item_list.sort_integers()
+#         with self.assertRaises(TypeError) as error_context:
+#             item_list.sort_integers()
 
-        actual_exception = str(error_context.exception)
+#         actual_exception = str(error_context.exception)
 
-        self.assertEqual(actual_exception, expected_exception)
+#         self.assertEqual(actual_exception, expected_exception)
 
-    def test_sorts_integers(self):
-        """Tests we can sort a list of integers in ascending order."""
+#     def test_sorts_integers(self):
+#         """Tests we can sort a list of integers in ascending order."""
 
-        input_data = [2, 5, 1, 4, 3, 0, -1]
-        expected_list = "[-1, 0, 1, 2, 3, 4, 5]"
+#         input_data = [2, 5, 1, 4, 3, 0, -1]
+#         expected_list = "[-1, 0, 1, 2, 3, 4, 5]"
 
-        item_list = MyList(input_data)
+#         item_list = MyList(input_data)
 
-        item_list.sort_integers()
-        sorted_list = str(item_list)
+#         item_list.sort_integers()
+#         sorted_list = str(item_list)
 
-        self.assertEqual(sorted_list, expected_list)
+#         self.assertEqual(sorted_list, expected_list)
 
 
 class GetItemByIndexTests(unittest.TestCase):
@@ -232,7 +232,7 @@ class RemovingTests(unittest.TestCase):
 
 
 class ValidIndexTests(unittest.TestCase):
-    """Tests validation of an index for different inputs"""
+    """Tests validation of an index for different inputs."""
 
     def test_out_of_range_index_fails(self):
         """Tests method raises an IndexError when index is out of range."""
@@ -265,3 +265,74 @@ class ValidIndexTests(unittest.TestCase):
         actual_exception = str(error_context.exception)
 
         self.assertEqual(actual_exception, expected_exception)
+
+
+class Sorting(unittest.TestCase):
+    """Tests sorting method works as intended."""
+
+    def test_sorting_multiple_types_fails(self):
+        """Tests sorting method raises TypeError when trying to sort a list of multiple types."""
+
+        input_data = [1, "2", 3]
+        expected_exception = "Cannot sort both <class 'int'> and <class 'str'>"
+
+        item_list = MyList(input_data)
+
+        with self.assertRaises(TypeError) as error_context:
+            item_list.sort()
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
+
+    def test_sorting_invalid_types_fails(self):
+        """Tests the method only allows sorting a list of integers or strings."""
+
+        input_data = [True, False]
+        expected_exception = "Can only sort integers or strings"
+
+        item_list = MyList(input_data)
+
+        with self.assertRaises(TypeError) as error_context:
+            item_list.sort()
+
+        actual_exception = str(error_context.exception)
+
+        self.assertEqual(actual_exception, expected_exception)
+
+    def test_sorting_integers(self):
+        """Tests we can sort a list of integers in ascending order."""
+
+        input_data = [2, 5, 1, 4, 3, 0, -1]
+        expected_list = "[-1, 0, 1, 2, 3, 4, 5]"
+
+        item_list = MyList(input_data)
+
+        item_list.sort()
+        sorted_list = str(item_list)
+
+        self.assertEqual(sorted_list, expected_list)
+
+    def test_sorting_strings(self):
+        """Tests we can sort a list of strings in ascending order."""
+
+        input_data = [
+            "hi",
+            "bye",
+            "byed",
+            "-1",
+            "byed",
+            "z1",
+            "23z",
+            "-2",
+            "ashd8uqwydadbuq",
+            "ashd8uqaydadbuq",
+        ]
+        expected_list = "['-1', '-2', '23z', 'ashd8uqaydadbuq', 'ashd8uqwydadbuq', 'bye', 'byed', 'byed', 'hi', 'z1']"
+
+        item_list = MyList(input_data)
+
+        item_list.sort()
+        sorted_list = str(item_list)
+
+        self.assertEqual(sorted_list, expected_list)
