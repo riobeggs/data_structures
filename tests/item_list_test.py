@@ -112,53 +112,6 @@ class AddingTests(unittest.TestCase):
         self.assertEqual(actual_exception, expected_exception)
 
 
-# class IntegerSortingTests(unittest.TestCase):
-#     """Tests that sorting method runs as it should."""
-
-#     def test_sorting_non_integers_fails(self):
-#         """Tests sorting method raises TypeError when to sorting items that are not integers."""
-
-#         input_data = ["Fail1", "Fail2"]
-#         expected_exception = "Cannot sort non-integers"
-
-#         item_list = MyList(input_data)
-
-#         with self.assertRaises(TypeError) as error_context:
-#             item_list.sort_integers()
-
-#         actual_exception = str(error_context.exception)
-
-#         self.assertEqual(actual_exception, expected_exception)
-
-#     def test_sorting_multiple_types_fails(self):
-#         """Tests sorting method raises TypeError when trying to sort a list of multiple types."""
-
-#         input_data = [1, "2", 3]
-#         expected_exception = "Cannot sort both <class 'int'> and <class 'str'>"
-
-#         item_list = MyList(input_data)
-
-#         with self.assertRaises(TypeError) as error_context:
-#             item_list.sort_integers()
-
-#         actual_exception = str(error_context.exception)
-
-#         self.assertEqual(actual_exception, expected_exception)
-
-#     def test_sorts_integers(self):
-#         """Tests we can sort a list of integers in ascending order."""
-
-#         input_data = [2, 5, 1, 4, 3, 0, -1]
-#         expected_list = "[-1, 0, 1, 2, 3, 4, 5]"
-
-#         item_list = MyList(input_data)
-
-#         item_list.sort_integers()
-#         sorted_list = str(item_list)
-
-#         self.assertEqual(sorted_list, expected_list)
-
-
 class GetItemByIndexTests(unittest.TestCase):
     """Tests we can get an item in the list by its index."""
 
